@@ -26,10 +26,18 @@ jobs:
             exit 1
           fi
 
-      - name: Linting do HTML com HTMLHint
-        uses: htmlhint/htmlhint-action@v1
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
         with:
-          files: 'src/index.html'
+          node-version: '20'
+
+      - name: Instalar HTMLHint
+        run: |
+          npm install -g htmlhint
+
+      - name: Linting do HTML com HTMLHint
+        run: |
+          htmlhint src/index.html
 
       - name: Verificar se existe footer com nome da aluna
         run: |
