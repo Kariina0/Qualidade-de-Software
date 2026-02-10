@@ -41,7 +41,7 @@ jobs:
 
       - name: Verificar se existe footer com nome da aluna
         run: |
-          if ! grep -q "<footer>.*Karina" src/index.html; then
+          if ! grep -Pzo "<footer>[\s\S]*?Karina[\s\S]*?</footer>" src/index.html; then
             echo "Footer com o nome da aluna Karina não encontrado!"
             exit 1
           fi
