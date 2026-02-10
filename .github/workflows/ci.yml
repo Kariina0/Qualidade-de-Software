@@ -1,0 +1,36 @@
+name: Qualidade de Software - CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  verificacao:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Verificar se a pasta src existe
+        run: |
+          if [ ! -d "src" ]; then
+            echo "Pasta src não encontrada!"
+            exit 1
+          fi
+
+      - name: Verificar se o arquivo CSS existe
+        run: |
+          if [ ! -f "src/css/style.css" ]; then
+            echo "Arquivo CSS não encontrado!"
+            exit 1
+          fi
+
+      - name: Linting do HTML com HTMLHint
+        uses: Cyb3r-Jak3/htmlhint-action@v1
+        with:
+          target_pattern: 'src/index.html'
+
+      - name: Relatório de Auditoria
+        run: |
+          echo "O código da aluna Karina Alves foi auditado, está seguindo as normas corretas e está pronto para o deploy!"
