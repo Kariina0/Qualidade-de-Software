@@ -22,14 +22,21 @@ jobs:
       - name: Verificar se o arquivo CSS existe
         run: |
           if [ ! -f "src/css/style.css" ]; then
-            echo "Arquivo CSS não encontrado!"
+            echo "Arquivo CSS não encontrado em src/css/style.css!"
             exit 1
           fi
 
       - name: Linting do HTML com HTMLHint
-        uses: Cyb3r-Jak3/htmlhint-action@v1
+        uses: htmlhint/htmlhint-action@v1
         with:
-          target_pattern: 'src/index.html'
+          files: 'src/index.html'
+
+      - name: Verificar se existe footer com nome da aluna
+        run: |
+          if ! grep -q "<footer>.*Karina" src/index.html; then
+            echo "Footer com o nome da aluna Karina não encontrado!"
+            exit 1
+          fi
 
       - name: Relatório de Auditoria
         run: |
